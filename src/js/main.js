@@ -314,7 +314,7 @@ class Main {
 				
 				},
 				remove: user => {
-					Array.from(layout.children).find(c => c.user === user)?.remove()
+					Array.from(layout.children).find(c => c.user.toLowerCase() === user.toLowerCase())?.remove()
 				},
 				add: async (data, user=null) => {
 					if (user) data = (await func.call(this, [user]))[0]
@@ -396,6 +396,7 @@ class Main {
 						divider.gripOffset = e.clientX - divider.offsetLeft
 					},
 					dragEvent: e => {
+						// hardcoded solution only for 2 panels
 						let width = (e.clientX - divider.gripOffset) / layoutParent.offsetWidth * 100
 						const maxWidth = (parseFloat(getComputedStyle(divider.nextSibling).minWidth) + divider.clientWidth) / layoutParent.offsetWidth * 100
 						width = Math.min(Math.max(0, width), 100 - maxWidth)
@@ -471,7 +472,7 @@ class Main {
 
 		document.addEventListener("keydown", e => {
 			const isTyping = ["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)
-			if (!isTyping && (e.ctrlKey || !e.ctrlKey) && e.key === "r") {
+			if (!e.repeat && !isTyping && (e.ctrlKey || !e.ctrlKey) && e.key === "r") {
 				e.preventDefault()
 				refreshBtn.click()
 			}

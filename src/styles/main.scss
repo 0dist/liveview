@@ -505,6 +505,8 @@ body {
 					margin: $gap;
 					z-index: 2;
 					border-radius: $gap;
+					aspect-ratio: 1;
+					object-fit: cover;
 			  
 				}
 
@@ -544,7 +546,7 @@ body {
 					.card-game {
 						color: $col-fg-alt;
 						font-size: $font-size-med;
-						margin-bottom: $gap-med;
+						margin-bottom: 2px;
 					}
 
 					.card-title {
