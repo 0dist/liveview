@@ -181,7 +181,16 @@ class Main {
 
 
 		const managerBtn = document.getElementById("manager-btn")
-		for (const btn of [managerBtn, settingsBtn]) btn.addEventListener("click", e => e.target === btn && btn.classList.toggle("enabled"))
+		for (const btn of [managerBtn, settingsBtn]) btn.addEventListener("click", e => {
+			e.target === btn && btn.classList.toggle("enabled")
+			setTimeout(() => {
+				document.addEventListener("click", e => {
+					if (!btn.contains(e.target)) {
+						btn.classList.remove("enabled")
+					}
+				}, {once: true})
+			}, 0)
+		})
 
 		this.managerLayout
 		const manager = Object.assign(document.createElement("div"), {className: "menu", id: "manager"})
