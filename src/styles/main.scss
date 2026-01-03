@@ -59,9 +59,17 @@ ul, ol {
 	&.enabled {
 		background-color: $col-bg-active;
 	}
-	// &:active {
-	// 	color: $col-fg-alt;
-	// }
+	&:active {
+		&:not(:has(.menu:hover)) {
+			color: $col-fg-alt;
+		}
+
+		& * {
+			color: $col-fg;
+		}
+	}
+
+
 }
 
 
@@ -313,7 +321,9 @@ body {
 						left: 0;
 						padding: $gap;
 						overflow-y: auto;
-						max-height: $card-width;
+						border-bottom-left-radius: $bd-rad;
+						border-bottom-right-radius: $bd-rad;
+						max-height: calc($card-width - $gap * 10);
 
 
 						&.visible {
@@ -325,6 +335,7 @@ body {
 							flex-direction: column;
 							gap: $gap;
 							text-align: left;
+
 
 							span {
 								overflow: hidden;

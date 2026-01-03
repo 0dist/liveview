@@ -21,7 +21,7 @@ class UserCard extends HTMLElement {
 		const elemConf = [
 			{dataProp: "img", tag: "img", attr: "src"},
 			// {dataProp: "img", tag: "img", className: "img-blur", attr: "src"},
-			{dataProp: "user", tag: "span", attr: "textContent"},
+			{dataProp: "userDisplay", className: "user", tag: "span", attr: "textContent"},
 			{dataProp: "game", tag: "span", attr: "textContent"},	
 			{dataProp: "views", tag: "span", attr: "textContent"},	
 			{dataProp: "title", tag: "span", attr: "textContent"}	
@@ -206,7 +206,8 @@ class Main {
 			const wrap = Object.assign(document.createElement("div"), {className: "user-row"})
 			const delBtn = Object.assign(document.createElement("button"), {
 				className: "btn icon icon-delete",
-				onclick: () => {
+				onclick: (e) => {
+					e.stopPropagation()
 					wrap.remove()
 					removeUser(user)
 					completerWrap.hide()
@@ -534,7 +535,8 @@ class Main {
 					views: response[0]["data"]["userOrError"]["stream"]["viewersCount"],
 					title: response[1]["data"]["user"]["broadcastSettings"]["title"],
 					img: response[0]["data"]["userOrError"]["profileImageURL"],
-					user: response[0]["data"]["userOrError"]["displayName"],
+					userDisplay: response[0]["data"]["userOrError"]["displayName"],
+					user,
 					site: "twitch"
 				}
 			}
@@ -568,7 +570,8 @@ class Main {
 					views: response["livestream"]["viewer_count"],
 					title: response["livestream"]["session_title"],
 					img: response["user"]["profile_pic"] || "https://files.kick.com/images/user/6937907/profile_image/conversion/80a89cbd-7052-49cd-b710-16778899bd86-thumb.webp",
-					user: response["user"]["username"],
+					userDisplay: response["user"]["username"],
+					user,
 					site: "kick"
 				}
 			}
